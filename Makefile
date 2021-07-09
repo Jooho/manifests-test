@@ -32,10 +32,10 @@ push-image:
 image: build push-image
 
 build-base-img:
-	podman build -f Dockerfile.base -t quay.io/jooholee/manifests-test:latest .
+	podman build -f Dockerfile.base -t quay.io/jooholee/manifests-test-base:latest .
 
 push-base-img:
-	podman push quay.io/jooholee/manifests-test:latest 
+	podman push quay.io/jooholee/manifests-test-base:latest
 
 base-image: build-base-img push-base-img
 

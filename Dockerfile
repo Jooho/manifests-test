@@ -1,4 +1,7 @@
-FROM quay.io/jooholee/manifests-test:latest
+FROM quay.io/jooholee/manifests-test-base:latest
+
+ENV HOME /root
+WORKDIR /root
 
 COPY env.sh scripts/installandtest.sh $HOME/peak/
 COPY resources $HOME/peak/operator-tests/manifests/resources

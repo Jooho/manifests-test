@@ -41,6 +41,12 @@ if [ -z "${OPENSHIFT_USER}" ] || [ -z "${OPENSHIFT_PASS}" ]; then
 
   export OPENSHIFT_USER=admin
   export OPENSHIFT_PASS=admin
+  
+else
+  # Update User/Password
+  sed "s/AUTH_TYPE: test-htpasswd-provider/AUTH_TYPE: ${OPENSHIFT_LOGIN_PROVIDER}/g" $HOME/peak/operator-tests/manifests/resources/test-variables.yml
+  sed "s/USERNAME: admin/USERNAME: ${OPENSHIFT_USER}/g" $HOME/peak/operator-tests/manifests/resources/test-variables.yml
+  sed "s/PASSWORD: admin/PASSWORD: ${OPENSHIFT_PASS}/g" $HOME/peak/operator-tests/manifests/resources/test-variables.yml
 fi
 
 env | sort >  ${ARTIFACT_DIR}/env.txt

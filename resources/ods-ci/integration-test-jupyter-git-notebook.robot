@@ -1,5 +1,5 @@
 *** Settings ***
-Default Tags     OpenDataHub
+Default Tags     ISVOperator_Test
 Resource         ${RESOURCE_PATH}/ODS.robot
 Resource         ${RESOURCE_PATH}/Common.robot
 Library          DebugLibrary
@@ -9,7 +9,8 @@ Suite Teardown   End Web Test
 
 *** Variables ***
 ${ODH_JUPYTERHUB_URL}   https://jupyterhub-opendatahub-jupyterhub.apps.my-cluster.test.redhat.com
-
+${GIT_REPO_URL}   https://github.com/Jooho/manifests-test
+${JUPYTER_NOTEBOOK_PATH}   manifests-test/notebooks/tensorflow/TensorFlow-MNIST-Minimal.ipynb
 
 *** Test Cases ***
 Can Launch Jupyterhub
@@ -27,7 +28,7 @@ Can Spawn Notebook
   Select Notebook Image  s2i-generic-data-science-notebook
   Spawn Notebook
 
-Can Launch Tensorflow Load Test Notebook
+Can Launch Integration Test Notebook
 
   Wait for JupyterLab Splash Screen  timeout=30
   Maybe Select Kernel
@@ -39,12 +40,12 @@ Can Launch Tensorflow Load Test Notebook
   Maybe Open JupyterLab Sidebar  File Browser
   Navigate Home In JupyterLab Sidebar
   Open With JupyterLab Menu  Git  Clone a Repository
-  Input Text  //div[.="Clone a repo"]/../div[contains(@class, "jp-Dialog-body")]//input  https://github.com/jooholee/manifests-test
+  Input Text  //div[.="Clone a repo"]/../div[contains(@class, "jp-Dialog-body")]//input  ${GIT_REPO_URL}
   Click Element  xpath://div[.="CLONE"]
 
   Sleep  5
   Open With JupyterLab Menu  File  Open from Path…
-  Input Text  //div[.="Open Path"]/../div[contains(@class, "jp-Dialog-body")]//input  manifests-test/notebooks/tensorflow/TensorFlow-MNIST-Minimal.ipynb
+  Input Text  //div[.="Open Path"]/../div[contains(@class, "jp-Dialog-body")]//input  ${JUPYTER_NOTEBOOK_PATH}
   Click Element  xpath://div[.="Open"]
 
   Capture Page Screenshot
