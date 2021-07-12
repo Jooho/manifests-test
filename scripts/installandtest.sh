@@ -44,9 +44,9 @@ if [ -z "${OPENSHIFT_USER}" ] || [ -z "${OPENSHIFT_PASS}" ]; then
   
 else
   # Update User/Password
-  sed "s/AUTH_TYPE: test-htpasswd-provider/AUTH_TYPE: ${OPENSHIFT_LOGIN_PROVIDER}/g" $HOME/peak/operator-tests/manifests/resources/test-variables.yml
-  sed "s/USERNAME: admin/USERNAME: ${OPENSHIFT_USER}/g" $HOME/peak/operator-tests/manifests/resources/test-variables.yml
-  sed "s/PASSWORD: admin/PASSWORD: ${OPENSHIFT_PASS}/g" $HOME/peak/operator-tests/manifests/resources/test-variables.yml
+  sed "s/AUTH_TYPE: test-htpasswd-provider/AUTH_TYPE: ${OPENSHIFT_LOGIN_PROVIDER}/g" -i $HOME/peak/operator-tests/manifests/resources/test-variables.yml
+  sed "s/USERNAME: admin/USERNAME: ${OPENSHIFT_USER}/g" -i $HOME/peak/operator-tests/manifests/resources/test-variables.yml
+  sed "s/PASSWORD: admin/PASSWORD: ${OPENSHIFT_PASS}/g" -i $HOME/peak/operator-tests/manifests/resources/test-variables.yml
 fi
 
 env | sort >  ${ARTIFACT_DIR}/env.txt
@@ -64,8 +64,8 @@ oc get pods -o yaml -n ${TEST_NAMESPACE} > ${ARTIFACT_DIR}/${TEST_NAMESPACE}.pod
 oc get pods -o yaml -n openshift-operators > ${ARTIFACT_DIR}/openshift-operators.pods.yaml
 echo "Saving the events in the artifacts directory"
 oc get events --sort-by='{.lastTimestamp}' > ${ARTIFACT_DIR}/${TEST_NAMESPACE}.events.txt
-echo "Saving the logs from the operator pod in the artifacts directory"
-oc logs -n openshift-operators $(oc get pods -n openshift-operators -l name=$OPERATOR_NAME -o jsonpath="{$.items[*].metadata.name}") > ${ARTIFACT_DIR}/operator.log 2> /dev/null || echo "No logs for openshift-operators/$OPERATOR_NAME"
+# echo "Saving the logs from the operator pod in the artifacts directory"
+# oc logs -n openshift-operators $(oc get pods -n openshift-operators -l name=$OPERATOR_NAME -o jsonpath="{$.items[*].metadata.name}") > ${ARTIFACT_DIR}/operator.log 2> /dev/null || echo "No logs for openshift-operators/$OPERATOR_NAME"
 
 if [ "$success" -ne 1 ]; then
     exit 1

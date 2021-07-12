@@ -17,7 +17,9 @@ os::test::junit::declare_suite_start "$MY_SCRIPT"
 function test_operator() {
     header "Testing ISV Operator installation"
     os::cmd::expect_success "oc project ${TEST_NAMESPACE}"
-    os::cmd::try_until_text "oc get deploymentconfig jupyterhub -n ${TEST_NAMESPACE}" "jupyterhub" $defaulttimeout $defaultinterval
+    # MUST UPDATE label (deploymentconfig=jupyterhub) and running pods count (1)
+    %ERROR EXPECTED%
+
     os::cmd::try_until_text "oc get pods -l deploymentconfig=jupyterhub --field-selector='status.phase=Running' -o jsonpath='{$.items[*].metadata.name}' -n ${TEST_NAMESPACE}" "jupyterhub" $defaulttimeout $defaultinterval
     runningpods=($(oc get pods -l deploymentconfig=jupyterhub --field-selector="status.phase=Running" -o jsonpath="{$.items[*].metadata.name}"))
     os::cmd::expect_success_and_text "echo ${#runningpods[@]}" "1"
