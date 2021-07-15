@@ -2,7 +2,7 @@
 
 set -x
 
-source ./env.sh
+source ../env.sh
 mkdir -p ~/.kube
 cp /tmp/kubeconfig ~/.kube/config 2> /dev/null || cp /var/run/secrets/ci.openshift.io/multi-stage/kubeconfig ~/.kube/config
 chmod 644 ~/.kube/config
@@ -37,6 +37,7 @@ if [ -z "${OPENSHIFT_USER}" ] || [ -z "${OPENSHIFT_PASS}" ]; then
   oc patch oauth cluster --type json -p '[{"op": "add", "path": "/spec/identityProviders/-", "value": '"$OAUTH_PATCH_TEXT"'}]'
 
   # Add default user "admin" for jupyterhub to group "rhods-users"
+  oc adm groups new rhods-users
   oc adm groups add-users rhods-users admin
 
   export OPENSHIFT_USER=admin

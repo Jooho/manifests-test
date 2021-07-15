@@ -13,11 +13,6 @@ run:
 		-e OPENSHIFT_USER="$(OPENSHIFT_USER)" -e OPENSHIFT_PASS="$(OPENSHIFT_PASS)" -e OPENSHIFT_LOGIN_PROVIDER=$(OPENSHIFT_LOGIN_PROVIDER) -e ARTIFACT_DIR=$(ARTIFACT_DIR) \
 		-it -v ${LOCAL_ARTIFACT_DIR}/:$(ARTIFACT_DIR):z -v /tmp/tests-kubeconfig:/tmp/kubeconfig:z $(MANIFESTS_FULL_IMG_URL)
 
-clean:
-	oc delete -n $(TEST_NAMESPACE) kfdef opendatahub || true
-	oc delete project $(TEST_NAMESPACE) || echo -e "\n\n==> If the project deletion failed, you can try to use this script to force it: https://raw.githubusercontent.com/jefferyb/useful-scripts/master/openshift/force-delete-openshift-project\n\n"
-	#Clean up openshift-operators namespace
-
 push-image:
 	@echo "Pushing the $(MANIFESTS_FULL_IMG_URL)"
 	podman push $(MANIFESTS_FULL_IMG_URL)

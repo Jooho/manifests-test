@@ -1,5 +1,6 @@
 # Customize
-OPERATOR_NAME=odh-operator                   # Format %PRODUCT_NAME%-operator ex) odh-operator
+# OPERATOR_NAME: Format %PRODUCT_NAME%-operator ex) odh-operator
+OPERATOR_NAME=odh-operator                    
 OPERATOR_CRD_API=kfdefs.kfdef.apps.kubeflow.org
 GIT_REPO_HOST=https://github.com
 GIT_REPO_ORG=Jooho
@@ -11,14 +12,16 @@ TEST_HARNESS_IMG_TAG=latest
 MANIFESTS_IMG_TAG=latest
 
 # Manifests 
-OPENSHIFT_USER=                  #admin
-OPENSHIFT_PASS=                  #admin
-OPENSHIFT_LOGIN_PROVIDER=        #test-htpasswd-provider
+# OPENSHIFT_USER/PASS/LOGIN_PROVIDER = admin/admin/test-htpasswd-provider
+OPENSHIFT_USER=                  
+OPENSHIFT_PASS=                  
+OPENSHIFT_LOGIN_PROVIDER=        
 TESTS_REGEX=
 
 # Jupyter Notebook
 # JUPYTER_NOTEBOOK_PATH should be like "${MANIFESTS_NAME}/notebooks/XXXX.ipynb"
-JUPYTER_NOTEBOOK_PATH=      # manifests-test/notebooks/tensorflow/TensorFlow-MNIST-Minimal.ipynb
+# default value: manifests-test/notebooks/tensorflow/TensorFlow-MNIST-Minimal.ipynb
+JUPYTER_NOTEBOOK_PATH=      
 
 
 #---------------------------------------------
@@ -42,4 +45,4 @@ ARTIFACT_DIR=/tmp/artifacts
 LOCAL_ARTIFACT_DIR="${PWD}/artifacts"
 
 # ETC
-OPERATOR_NAME_SHORT=$(echo ${a}|cut -d- -f1)
+OPERATOR_NAME_SHORT=$(echo ${OPERATOR_NAME}|cut -d- -f1)
