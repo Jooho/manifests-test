@@ -2,7 +2,7 @@
 
 set -x
 
-source ../env.sh
+source ./env.sh
 mkdir -p ~/.kube
 cp /tmp/kubeconfig ~/.kube/config 2> /dev/null || cp /var/run/secrets/ci.openshift.io/multi-stage/kubeconfig ~/.kube/config
 chmod 644 ~/.kube/config
@@ -42,6 +42,9 @@ if [ -z "${OPENSHIFT_USER}" ] || [ -z "${OPENSHIFT_PASS}" ]; then
 
   export OPENSHIFT_USER=admin
   export OPENSHIFT_PASS=admin
+  
+  echo "Wait 1 min for new auth applied"
+  sleep 60
   
 else
   # Update User/Password
