@@ -33,7 +33,7 @@ if [ -z "${OPENSHIFT_USER}" ] || [ -z "${OPENSHIFT_PASS}" ]; then
   fi
 
   # Patch in the htpasswd identityProvider prevent deletion of any existing identityProviders like ldap
-  #  We can have multiple identityProvdiers enabled aslong as their 'name' value is unique
+  # We can have multiple identityProvdiers enabled aslong as their 'name' value is unique
   oc patch oauth cluster --type json -p '[{"op": "add", "path": "/spec/identityProviders/-", "value": '"$OAUTH_PATCH_TEXT"'}]'
 
   # Add default user "admin" for jupyterhub to group "rhods-users"
@@ -42,9 +42,13 @@ if [ -z "${OPENSHIFT_USER}" ] || [ -z "${OPENSHIFT_PASS}" ]; then
 
   export OPENSHIFT_USER=admin
   export OPENSHIFT_PASS=admin
-  
-  echo "Wait 1 min for new auth applied"
-  sleep 60
+
+  while [[ $(oc get deploy oauth-openshift -o jsonpath='{ .status.readyReplicas}') != $(oc get deploy oauth-openshift -o jsonpath='{ .status.replicas}') ]]
+  do
+    echo "Wait 5sec for oauth server"
+    sleep 5
+  done
+  echo "Auth Ready."
   
 else
   # Update User/Password
