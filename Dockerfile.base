@@ -1,7 +1,7 @@
 FROM quay.io/centos/centos:stream8
 
 ARG CHROMEDRIVER_VER=91.0.4472.101
-ARG ODS_CI_BRANCH=master
+ARG ODS_CI_BRANCH=stable
 
 ENV HOME /root
 WORKDIR /root

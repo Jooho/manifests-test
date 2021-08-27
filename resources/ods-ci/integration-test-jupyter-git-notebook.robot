@@ -43,7 +43,7 @@ Can Launch Integration Test Notebook
   Input Text  //div[.="Clone a repo"]/../div[contains(@class, "jp-Dialog-body")]//input  ${GIT_REPO_URL}
   Click Element  xpath://div[.="CLONE"]
 
-  Sleep  5
+  Sleep  30
   Open With JupyterLab Menu  File  Open from Path…
   Input Text  //div[.="Open Path"]/../div[contains(@class, "jp-Dialog-body")]//input  ${JUPYTER_NOTEBOOK_PATH}
   Click Element  xpath://div[.="Open"]
@@ -54,7 +54,7 @@ Can Launch Integration Test Notebook
   Close Other JupyterLab Tabs
 
   Open With JupyterLab Menu  Run  Run All Cells
-  Wait Until JupyterLab Code Cell Is Not Active
+  Wait Until JupyterLab Code Cell Is Not Active  timeout=1200
   Capture Page Screenshot
   JupyterLab Code Cell Error Output Should Not Be Visible
 
