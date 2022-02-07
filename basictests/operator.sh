@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Test Harness requires to verify Jupyter
 source $TEST_DIR/common
 
 MY_DIR=$(readlink -f `dirname "${BASH_SOURCE[0]}"`)
@@ -17,7 +17,7 @@ os::test::junit::declare_suite_start "$MY_SCRIPT"
 function test_operator() {
     header "Testing ISV Operator installation"
     os::cmd::expect_success "oc project ${TEST_NAMESPACE}"
-    # MUST UPDATE label (deploymentconfig=jupyterhub) and running pods count (1)
+    # MUST UPDATE - Examples => label (deploymentconfig=jupyterhub) and running pods count (1)
     %ERROR EXPECTED%
 
     os::cmd::try_until_text "oc get pods -l deploymentconfig=jupyterhub --field-selector='status.phase=Running' -o jsonpath='{$.items[*].metadata.name}' -n ${TEST_NAMESPACE}" "jupyterhub" $defaulttimeout $defaultinterval
