@@ -10,6 +10,7 @@ IMG_REG_ORG=jooholee
 TEST_NAMESPACE=${OPERATOR_NAME}
 TEST_HARNESS_IMG_TAG=latest
 MANIFESTS_IMG_TAG=latest
+JUPYTERHUB_NAMESPACE=opendatahub
 
 # Manifests 
 # OPENSHIFT_USER/PASS/LOGIN_PROVIDER = admin/admin/test-htpasswd-provider
@@ -19,9 +20,12 @@ OPENSHIFT_LOGIN_PROVIDER=
 TESTS_REGEX=
 
 # Jupyter Notebook
-# JUPYTER_NOTEBOOK_PATH should be like "${MANIFESTS_NAME}/notebooks/XXXX.ipynb"
-# default value: manifests-test/notebooks/tensorflow/TensorFlow-MNIST-Minimal.ipynb
-JUPYTER_NOTEBOOK_PATH=      
+# JUPYTER_NOTEBOOK_PATH should be like "${MANIFESTS_NAME}/notebooks"
+# default value: manifests-test/notebooks/tensorflow
+# JUPYTER_NOTEBOOK_FILE should be like "XXXX.ipynb"
+# default value: TensorFlow-MNIST-Minimal.ipynb
+JUPYTER_NOTEBOOK_PATH=${MANIFESTS_NAME}/notebooks/tensorflow
+JUPYTER_NOTEBOOK_FILE=TensorFlow-MNIST-Minimal.ipynb        
 
 
 #---------------------------------------------

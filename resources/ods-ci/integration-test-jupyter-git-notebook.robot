@@ -2,15 +2,16 @@
 Default Tags     ISVOperator_Test
 Resource         ${RESOURCE_PATH}/ODS.robot
 Resource         ${RESOURCE_PATH}/Common.robot
+Resource         ${RESOURCE_PATH}/Page/ODH/JupyterHub/JupyterHubSpawner.robot
 Library          DebugLibrary
 
 Suite Teardown   End Web Test
 
-
 *** Variables ***
 ${ODH_JUPYTERHUB_URL}   https://jupyterhub-opendatahub-jupyterhub.apps.my-cluster.test.redhat.com
 ${GIT_REPO_URL}   https://github.com/Jooho/manifests-test
-${JUPYTER_NOTEBOOK_PATH}   manifests-test/notebooks/tensorflow/TensorFlow-MNIST-Minimal.ipynb
+${JUPYTER_NOTEBOOK_PATH}   manifests-test/notebooks/tensorflow
+${JUPYTER_NOTEBOOK_FILE}   TensorFlow-MNIST-Minimal.ipynb
 
 *** Test Cases ***
 Can Launch Jupyterhub
@@ -31,26 +32,26 @@ Can Spawn Notebook
 Can Launch Integration Test Notebook
 
   Wait for JupyterLab Splash Screen  timeout=30
+  
   Maybe Select Kernel
   ${is_launcher_selected} =  Run Keyword And Return Status  JupyterLab Launcher Tab Is Selected
   Run Keyword If  not ${is_launcher_selected}  Open JupyterLab Launcher
   Launch a new JupyterLab Document
   Close Other JupyterLab Tabs
 
-  Maybe Open JupyterLab Sidebar  File Browser
-  Navigate Home In JupyterLab Sidebar
+  Navigate Home (Root folder) In JupyterLab Sidebar File Browser
   Open With JupyterLab Menu  Git  Clone a Repository
   Input Text  //div[.="Clone a repo"]/../div[contains(@class, "jp-Dialog-body")]//input  ${GIT_REPO_URL}
   Click Element  xpath://div[.="CLONE"]
 
   Sleep  30
   Open With JupyterLab Menu  File  Open from Path…
-  Input Text  //div[.="Open Path"]/../div[contains(@class, "jp-Dialog-body")]//input  ${JUPYTER_NOTEBOOK_PATH}
+  Input Text  //div[.="Open Path"]/../div[contains(@class, "jp-Dialog-body")]//input  ${JUPYTER_NOTEBOOK_PATH}/${JUPYTER_NOTEBOOK_FILE}
   Click Element  xpath://div[.="Open"]
 
   Capture Page Screenshot
 
-  Wait Until TensorFlow-MNIST-Minimal.ipynb JupyterLab Tab Is Selected
+  Wait Until ${JUPYTER_NOTEBOOK_FILE} JupyterLab Tab Is Selected
   Close Other JupyterLab Tabs
 
   Open With JupyterLab Menu  Run  Run All Cells
@@ -65,3 +66,8 @@ Can Launch Integration Test Notebook
 
   Logout JupyterLab
 
+#Clean up
+  Clean Up Server
+  Stop JupyterLab Notebook Server
+  Capture Page Screenshot
+  Close Browser

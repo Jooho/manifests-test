@@ -19,6 +19,7 @@ push-image:
 
 image: build push-image
 
+# Base image
 build-base-img:
 	podman build -f Dockerfile.base -t quay.io/jooholee/manifests-test-base:latest .
 

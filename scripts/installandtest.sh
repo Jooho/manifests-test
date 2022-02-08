@@ -45,8 +45,8 @@ if [ -z "${OPENSHIFT_USER}" ] || [ -z "${OPENSHIFT_PASS}" ]; then
 
   while [[ $(oc get deploy oauth-openshift -o jsonpath='{ .status.readyReplicas}' -n openshift-authentication) != $(oc get deploy oauth-openshift -o jsonpath='{ .status.replicas}' -n openshift-authentication) ]]
   do
-    echo "Wait 5sec for oauth server"
-    sleep 5
+    echo "Wait 10sec for oauth server"
+    sleep 10
   done
   echo "Auth Ready."
   
