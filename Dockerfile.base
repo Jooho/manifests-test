@@ -1,8 +1,8 @@
 FROM quay.io/jooholee/ods-ci:stable
 
 USER root
-ENV HOME /root
-WORKDIR /root
+ENV HOME /tmp
+WORKDIR /tmp
 
 RUN dnf install -y bc git go-toolset python3-pip unzip redhat-lsb-core && \
     git clone https://github.com/crobby/peak $HOME/peak && \    

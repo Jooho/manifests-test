@@ -45,7 +45,7 @@ MANIFESTS_IMG=${MANIFESTS_NAME}
 MANIFESTS_GIT_REPO_URL=${GIT_REPO_HOST}/${GIT_REPO_ORG}/${MANIFESTS_NAME}
 MANIFESTS_FULL_IMG_URL=${IMG_REG_HOST}/${IMG_REG_ORG}/${MANIFESTS_IMG}:${MANIFESTS_IMG_TAG}
 ## Location inside the container where CI system will retrieve files after a test run
-ARTIFACT_DIR=/tmp/artifacts
+ARTIFACT_DIR=/tmp/manifests-artifacts
 LOCAL_ARTIFACT_DIR="${PWD}/artifacts"
 
 # ETC

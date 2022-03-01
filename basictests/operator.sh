@@ -11,6 +11,7 @@ ODS_CI_REPO_ROOT=${ODS_CI_REPO_ROOT:-"${HOME}/src/ods-ci"}
 JUPYTER_NOTEBOOK_PATH=${JUPYTER_NOTEBOOK_PATH:-"manifests-test/notebooks/tensorflow/TensorFlow-MNIST-Minimal.ipynb"}
 JUPYTER_NOTEBOOK_FILE=${JUPYTER_NOTEBOOK_FILE:-"TensorFlow-MNIST-Minimal.ipynb"}
 GIT_REPO_URL=${MANIFESTS_GIT_REPO_URL:-"https://github.com/Jooho/manifests-test"}
+JUPYTERHUB_NAMESPACE=${JUPYTERHUB_NAMESPACE:-"redhat-ods-applications"}
 
 
 os::test::junit::declare_suite_start "$MY_SCRIPT"
