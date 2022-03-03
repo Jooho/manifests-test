@@ -4,7 +4,7 @@ USER root
 ENV HOME /tmp
 WORKDIR /tmp
 
-RUN dnf install -y bc git go-toolset python3-pip unzip redhat-lsb-core && \
+RUN dnf install -y bc redhat-lsb-core && \
     git clone https://github.com/crobby/peak $HOME/peak && \    
     cd $HOME/peak && \
     git submodule update --init

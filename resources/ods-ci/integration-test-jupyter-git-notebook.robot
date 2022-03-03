@@ -15,6 +15,7 @@ ${JUPYTER_NOTEBOOK_FILE}   TensorFlow-MNIST-Minimal.ipynb
 
 *** Test Cases ***
 Can Launch Jupyterhub
+  Set Library Search Order  SeleniumLibrary
   Open Browser  ${ODH_JUPYTERHUB_URL}  browser=${BROWSER.NAME}  options=${BROWSER.OPTIONS}
 
 Can Login to Jupyterhub
